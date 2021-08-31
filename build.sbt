@@ -24,17 +24,17 @@ dependencyOverrides += "com.fasterxml.jackson.core" % "jackson-databind" % "2.6.
  */
 assemblyMergeStrategy in assembly := {
   //@formatter:off
-  case PathList("javax", "servlet", xs@_*)         => MergeStrategy.first
+  case PathList("javax", "servlet", _*)            => MergeStrategy.first
   case PathList(ps@_*) if ps.last endsWith ".html" => MergeStrategy.first
   case "log4j.propreties"                          => MergeStrategy.first
   // ----
   // required for spark-sql to read different data types (e.g. parquet/orc/csv...)
   // ----
-  case PathList("META-INF", "services", xs@_*)     => MergeStrategy.first
-  case PathList("META-INF", xs@_*)                 => MergeStrategy.discard
+  case PathList("META-INF", "services", _*)        => MergeStrategy.first
+  case PathList("META-INF", _*)                    => MergeStrategy.discard
   case n if n.startsWith("reference.conf")         => MergeStrategy.concat
   case n if n.endsWith(".conf")                    => MergeStrategy.concat
-  case x => MergeStrategy.first
+  case _ => MergeStrategy.first
   //@formatter:on
 }
 
